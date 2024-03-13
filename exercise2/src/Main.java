@@ -1,34 +1,49 @@
-import java.util.Scanner;
+import java.time.*;
+
+class Person {
+    public static int basePrice = 40;
+    protected int age;
+    protected String city;
+    protected String weekday;
+    protected int discount;
+
+    public Person(int age, String city) {
+        this.age = age;
+        this.city = city.toLowerCase();
+        this.weekday = getDayOfWeek().toLowerCase();
+        this.discount = calculateDiscount();
+    }
+
+    public static String getDayOfWeek() {
+        return LocalDate.now().getDayOfWeek().name();
+    }
+
+    protected int calculateDiscount() {
+        int discount = 0;
+        if ((this.age < 10) || (this.weekday.equals("thursday"))) {
+            discount += 100;
+        } else {
+            if ((this.age >= 10) && (this.age <= 18))
+                discount += 50;
+            if (this.city.equals("warsaw"))
+                discount += 10;
+        }
+        return discount;
+    }
+
+    public double getIndividualPrice () {
+        return (1 - (this.discount / 100.00)) * basePrice;
+    }
+
+    public void printData() {
+        System.out.println("Data: " + this.city + ", " + this.age + " years old, " + this.weekday + " Ticket price: " + getIndividualPrice() + " PLN");
+        System.out.println("Discount: " + discount + "%");
+    }
+}
 
 public class Main {
     public static void main(String[] args) {
-        task1();
-    }
-    public static void task1() {
-        Scanner scanner = new Scanner(System.in);
-
-        System.out.print("Age: ");
-        int age = scanner.nextInt();
-
-        System.out.print("City of residence: ");
-        String city = scanner.next().toLowerCase();
-
-        System.out.print("Day of the week: ");
-        String weekday = scanner.next().toLowerCase();
-
-        int discount = 0;
-        if ((age < 10) || (weekday.equals("thursday"))) {
-            discount += 100;
-        } else {
-            if ((age >= 10) && (age <= 18))
-                discount += 50;
-            if (city.equals("warsaw"))
-                discount += 10;
-        }
-
-        double price = (1 - (discount / 100.00)) * 40;
-
-        System.out.println("Data: " + city + ", " + age + " years old, " + weekday + " Ticket price: " + price + " PLN");
-        System.out.println("Discount: " + discount + "%");
+        Person customer = new Person(18, "Warsaw");
+        customer.printData();
     }
 }
