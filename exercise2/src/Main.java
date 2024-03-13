@@ -14,6 +14,10 @@ class Person {
         this.discount = calculateDiscount();
     }
 
+    public Person(int age, String city, String weekday) {
+
+    }
+
     public static String getDayOfWeek() {
         return LocalDate.now().getDayOfWeek().name();
     }
@@ -21,13 +25,13 @@ class Person {
     protected int calculateDiscount() {
         int discount = 0;
         if ((this.age < 10) || (this.weekday.equals("thursday"))) {
-            discount += 100;
-        } else {
-            if ((this.age >= 10) && (this.age <= 18))
-                discount += 50;
-            if (this.city.equals("warsaw"))
-                discount += 10;
+            discount = 100;
+            return discount;
         }
+        if ((this.age >= 10) && (this.age <= 18))
+                discount += 50;
+        if (this.city.equals("warsaw"))
+                discount += 10;
         return discount;
     }
 
