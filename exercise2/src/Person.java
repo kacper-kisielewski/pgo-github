@@ -4,12 +4,11 @@ public class Person {
     public static int basePrice = 40;
     public int age;
     public String city;
-    public String weekday;
+    public String weekday = getDayOfWeek();
 
     public Person(int age, String city) {
         this.age = age;
         this.city = city.toLowerCase();
-        this.weekday = getDayOfWeek().toLowerCase();
     }
 
     public Person(int age, String city, String weekday) {
